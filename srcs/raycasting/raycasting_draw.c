@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_draw.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shmoreno <shmoreno@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmoeller <tmoeller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:00:27 by tmoeller          #+#    #+#             */
-/*   Updated: 2024/12/15 22:19:41 by shmoreno         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:46:32 by tmoeller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static void	choose_wall_texture(t_game *game)
+void	choose_wall_texture(t_game *game)
 {
 	if (game->ray->side == 0)
 	{
@@ -34,7 +34,7 @@ static void	choose_wall_texture(t_game *game)
 // side 0 is a vertical wall (y axis), side 1 horizontal (x axis)
 // after, chooses W/E or N/S depending on ray direction
 
-static void	draw_vertical_line(t_game *game)
+void	draw_vertical_line(t_game *game)
 {
 	int	y;
 
@@ -62,6 +62,8 @@ static void	draw_vertical_line(t_game *game)
 
 void	cast_rays(t_game *game)
 {
+	int	tex_id; // added for textures
+
 	update_frame_time(game);
 	game->ray->x = 0;
 	while (game->ray->x < WIN_WIDTH)
@@ -71,8 +73,10 @@ void	cast_rays(t_game *game)
 		process_dda(game);
 		perp_init(game);
 		calculate_line_height(game);
-		choose_wall_texture(game);
-		draw_vertical_line(game);
+		//choose_wall_texture(game);
+		//draw_vertical_line(game);
+		tex_id = choose_tex_id(game); // for textures, and below
+		draw_textured_line(game, tex_id);
 		game->ray->x++;
 	}
 	mlx_put_image_to_window(game->p_mlx_init, game->p_mlx_window, game->img.i, 0, 0);

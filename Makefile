@@ -21,6 +21,8 @@ SRC_2 = srcs/errors/errors.c \
 	srcs/raycasting/raycasting_calcul.c \
 	srcs/raycasting/raycasting_draw.c \
 	srcs/raycasting/raycasting_init.c \
+	srcs/texturing/draw_textures.c \
+	srcs/texturing/init_textures.c \
 	srcs/player/init_player_controls.c \
 	srcs/player/keys.c \
 	srcs/player/player_movement.c \

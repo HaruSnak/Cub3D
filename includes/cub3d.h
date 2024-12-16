@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shmoreno <shmoreno@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmoeller <tmoeller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:03:40 by shmoreno          #+#    #+#             */
-/*   Updated: 2024/12/08 14:31:44 by shmoreno         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:46:39 by tmoeller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,17 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_tex
+{
+	void	*img;
+	char	*addr;
+	int		w;
+	int		h;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_tex;
+
 typedef struct s_game
 {
 	void		*p_mlx_init;
@@ -177,6 +188,7 @@ typedef struct s_game
 	t_ray		*ray;
 	t_map		*map;
 	t_ply		*ply;
+	t_tex		tex[4];
 }	t_game;
 
 
@@ -220,6 +232,17 @@ void	update_frame_time(t_game *game);
 
 // FUNCTION RAYCASTING /-\ srcs/raycasting/raycasting_draw.c
 void	cast_rays(t_game *game);
+void	choose_wall_texture(t_game *game);
+void	draw_vertical_line(t_game *game);
+
+// FUNCTION TEXTURE /-\ srvs/texturing/init_textures.c
+void	ft_init_textures(t_game *game);
+int		get_tex_color(t_tex *t, int x, int y);
+int		choose_tex_id(t_game *game);
+void	draw_textured_line(t_game *game, int tex_id);
+
+// FUNCTION TEXTURE /-\ srvs/texturing/draw_textures.c
+void	draw_textured_line(t_game *g, int tex_id);
 
 // FUNCTION PLAYER /-\ srcs/player/intit_player_controls.c
 int 	ft_update_game(void *param);
@@ -234,8 +257,8 @@ void	move_right(t_game *game);
 // FUNCTION PLAYER /-\ srcs/player/rotate.c
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
-void	rotate_player(t_game *game, double angle);				// A AJOUTER
-int		mouse_move(int x, int y, void *param);					// A AJOUTER
+void	rotate_player(t_game *game, double angle);
+int		mouse_move(int x, int y, void *param);
 
 // FUNCTION PLAYER /-\ srcs/player/keys.c
 int	key_release(int keycode, void *param);
