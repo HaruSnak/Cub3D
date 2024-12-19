@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player_controls.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shmoreno <shmoreno@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmoeller <tmoeller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 12:04:30 by tmoeller          #+#    #+#             */
-/*   Updated: 2024/12/18 12:51:23 by shmoreno         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:40:15 by tmoeller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_player(t_game *game)
 {
 	game->ply->time = get_time();
 	game->ply->old_time = game->ply->time;
-	game->ply->sensitivity = 0.00001;
+	game->ply->sensitivity = 0.0005;
 	game->ply->frame_time = 0.0;
 	game->ply->move_speed = 0.1;
 	game->ply->rotate_speed = 0.05;
